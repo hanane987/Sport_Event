@@ -1,12 +1,9 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import bcrypt from 'bcryptjs';
-import Organizer from '../models/Organizer.js';
+import User from '../models/User.js';
 
-// Load environment variables
 dotenv.config();
 
-// Connect to MongoDB
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
@@ -15,32 +12,38 @@ const connectDB = async () => {
     });
     console.log('MongoDB connected');
   } catch (err) {
-    console.error('Database connection error:', err);
-    process.exit(1); // Exit with failure
+    console.error(err);
+    process.exit(1);
   }
 };
 
 const seedOrganizer = async () => {
   try {
-    // Clear existing organizers (optional)
-    await Organizer.deleteMany();
+    // Check if an organizer already exists
+    const existingOrganizer = await User.findOne({ email: 'organizer@example.com' });
+    if (existingOrganizer) {
+      console.log('Organizer already exists');
+      return mongoose.connection.close();
+    }
 
-    // Create a new organizer
-    const organizer = new Organizer({
+    // Create an organizer
+    const organizer = new User({
       email: 'organizer@example.com',
-      password: 'organizerpassword', // Will be hashed before saving
+      password: 'organizerpassword', // Raw password; hashed in the model
+      role: 'Organizer',
     });
 
     await organizer.save();
     console.log('Organizer seeded successfully');
+    mongoose.connection.close();
   } catch (err) {
-    console.error('Error seeding organizer:', err);
-  } finally {
-    mongoose.connection.close(); // Ensure the connection closes
+    console.error(err);
+    mongoose.connection.close();
+    process.exit(1);
   }
 };
 
-// Run the functions
+// Run seed script
 (async () => {
   await connectDB();
   await seedOrganizer();

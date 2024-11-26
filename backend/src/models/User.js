@@ -1,33 +1,35 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-const organizerSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
-      required: [true, 'Email is required'],
+      required: true,
       unique: true,
       lowercase: true,
       trim: true,
     },
     password: {
       type: String,
-      required: [true, 'Password is required'],
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ['Organizer', 'Participant'], // Two roles
+      required: true,
     },
   },
-  {
-    timestamps: true, // Adds createdAt and updatedAt fields automatically
-  }
+  { timestamps: true }
 );
 
 // Hash password before saving
-organizerSchema.pre('save', async function (next) {
+userSchema.pre('save', async function (next) {
   if (this.isModified('password')) {
     this.password = await bcrypt.hash(this.password, 10);
   }
   next();
 });
 
-const Organizer = mongoose.model('Organizer', organizerSchema);
-
-export default Organizer;
+const User = mongoose.model('User', userSchema);
+export default User;
