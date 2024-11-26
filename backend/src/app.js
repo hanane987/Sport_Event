@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import authRoutes from './routes/authRoutes.js';
-
+import evenementRoutes from './routes/evenementRoutes.js';
 
 dotenv.config();
 
@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 
 // Routes
 app.use('/api/auth', authRoutes);
-
+app.use('/api/events', evenementRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;
