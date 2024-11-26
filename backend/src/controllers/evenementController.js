@@ -59,3 +59,25 @@ export const getEventById = async (req, res) => {
   }
 };
 
+// Update an event
+export const updateEvent = async (req, res) => {
+  const { id } = req.params;
+  const { title, description, date, location, image, participants } = req.body;
+
+  try {
+    const updatedEvent = await Evenement.findByIdAndUpdate(
+      id,
+      { title, description, date, location, image, participants },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedEvent) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    res.status(200).json({ message: 'Event updated successfully', event: updatedEvent });
+  } catch (error) {
+    res.status(400).json({ message: 'Error updating event', error: error.message });
+  }
+};
+
