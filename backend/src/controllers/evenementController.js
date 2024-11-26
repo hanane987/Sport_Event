@@ -44,3 +44,18 @@ export const getAllEvents = async (req, res) => {
   }
 };
 
+// Get a single event by ID
+export const getEventById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const event = await Evenement.findById(id).populate('participants', 'name email');
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+    res.status(200).json(event);
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving event', error: error.message });
+  }
+};
+
