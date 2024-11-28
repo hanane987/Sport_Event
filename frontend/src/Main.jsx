@@ -8,4 +8,4 @@ export const FitMaker = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
- 
+}
