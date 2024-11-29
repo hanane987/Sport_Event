@@ -29,3 +29,19 @@ A simple Event Management System built using Node.js, Express, MongoDB, and Reac
     User Authentication: Secure login and registration using JWT. 🔐
     Simple Event Management: Easy-to-use interface for managing events. ⚙️
     Modern Tech Stack: Built with React for frontend and Node.js/Express for backend. ⚡
+
+
+    🛠️ Tech Stack
+
+    Frontend:
+        React 🖥️
+        CSS 🎨 (for styling)
+        Axios 🌐 (for HTTP requests)
+    Backend:
+        Node.js 🚀
+        Express ⚡
+        MongoDB 🍃 (with Mongoose for data modeling)
+        JWT Authentication 🔑 (for secure login)
+    Utilities:
+        bcryptjs 🔐 (for password hashing)
+        dotenv 🗝️ (for managing environment variables)
