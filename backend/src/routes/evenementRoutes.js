@@ -1,16 +1,16 @@
 import express from 'express';
-import { authenticateToken } from '../middleware/authMiddleware.js';
+import { authenticateToken } from '../middleware/authMiddleware.js'; // Corrected import path
 import {
   createEvent,
   getAllEvents,
   getEventById,
   updateEvent,
   deleteEvent,
-} from '../controllers/evenementController.js';
+} from '../controllers/evenementController.js'; // Corrected import path
 
 const router = express.Router();
 
-// Public route for events (no authentication required)
+// Public routes for events (no authentication required)
 router.get('/', getAllEvents); 
 router.get('/:id', getEventById); 
 
