@@ -18,3 +18,14 @@ A simple Event Management System built using Node.js, Express, MongoDB, and Reac
     License
     Contact
     Acknowledgments
+
+
+    🚀 Features
+
+    Create Events: Allows users to add new events with details like title, description, date, and location. 🎉
+    View Events: View a list of all created events. 📅
+    Event Form Validation: Ensures that all event details are correctly filled out. ✔️
+    Responsive UI: Optimized for both desktop and mobile devices. 📱
+    User Authentication: Secure login and registration using JWT. 🔐
+    Simple Event Management: Easy-to-use interface for managing events. ⚙️
+    Modern Tech Stack: Built with React for frontend and Node.js/Express for backend. ⚡
