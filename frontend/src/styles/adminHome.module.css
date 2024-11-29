@@ -1,0 +1,204 @@
+.dashboard {
+    border-radius: 30px;
+    background-color: rgb(16, 16, 16);
+    padding: 26px 37px 14px 80px;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+  
+  .contentWrapper {
+    display: flex;
+    gap: 20px;
+    height: 100%;
+  }
+  
+  .sidebar {
+    width: 16%;
+    flex-shrink: 0;
+  }
+  
+  .mainContent {
+    width: 84%;
+    flex-grow: 1;
+  }
+  
+  .contentBackground {
+    border-radius: 30px;
+    background-color: #fff;
+    padding: 0 80px;
+    height: 100%;
+    min-height: calc(100vh - 52px);
+  }
+  
+  .cardContainer {
+    background-color: rgb(249, 250, 252);
+    padding: 542px 50px 60px;
+    width: 350px;
+  }
+  
+  .userProfile {
+    margin-top: 39px;
+    color: #fff;
+  }
+  
+  .profileImage {
+    width: 86px;
+    height: 87px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .userName {
+    font: 600 30px/1 Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+    margin-top: 20px;
+  }
+  
+  .userEmail {
+    font: 400 17px/2 Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+    margin-top: 5px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .navigation {
+    margin-top: 117px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .sidebarLink {
+    color: #fff;
+    font: 600 25px/1.4 Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 0;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+  
+  .sidebarLink:hover {
+    opacity: 0.8;
+  }
+  
+  .sidebarLink:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+  
+  .sidebarLink.active {
+    color: #fff;
+    position: relative;
+  }
+  
+  .sidebarLink.active::after {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background-color: #fff;
+    border-radius: 50%;
+  }
+  
+  .savingsCard {
+    background-color: rgb(237, 240, 246);
+    border-radius: 15px;
+    padding: 0 25px 25px;
+    position: relative;
+  }
+  
+  .cardHeader {
+    display: flex;
+    margin-top: -34px;
+    gap: 20px;
+    justify-content: space-between;
+  }
+  
+  .savingsIcon {
+    width: 84px;
+    margin-top: 19px;
+  }
+  
+  .decorativeIcon {
+    width: 53px;
+  }
+  
+  .cardTitle {
+    color: rgb(39, 50, 64);
+    letter-spacing: 0.34px;
+    margin-top: 20px;
+    font: 600 16px Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  
+  .cardDescription {
+    color: rgb(64, 72, 82);
+    letter-spacing: 0.43px;
+    margin-top: 4px;
+    font: 400 12px/21px Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  
+  .viewTipsButton {
+    background-color: rgb(16, 16, 16);
+    border-radius: 8px;
+    color: #fff;
+    letter-spacing: 1.5px;
+    padding: 13px 35px;
+    font: 600 13px Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .viewTipsButton:hover {
+    background-color: rgb(40, 40, 40);
+  }
+  
+  .viewTipsButton:focus-visible {
+    outline: 2px solid rgb(16, 16, 16);
+    outline-offset: 2px;
+  }
+  
+  @media (max-width: 991px) {
+    .dashboard {
+      padding: 0 20px;
+    }
+  
+    .contentWrapper {
+      flex-direction: column;
+    }
+  
+    .sidebar,
+    .mainContent {
+      width: 100%;
+    }
+  
+    .navigation {
+      margin-top: 40px;
+    }
+  
+    .cardContainer {
+      padding: 100px 20px 0;
+      width: 100%;
+    }
+  
+    .savingsCard {
+      padding: 0 20px;
+    }
+  
+    .viewTipsButton {
+      width: 100%;
+      padding: 13px 20px;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .sidebarLink,
+    .viewTipsButton {
+      transition: none;
+    }
+  }
