@@ -36,7 +36,7 @@ A simple Event Management System built using Node.js, Express, MongoDB, and Reac
     Frontend:
         React 🖥️
         CSS 🎨 (for styling)
-        Axios 🌐 (for HTTP requests)
+     
     Backend:
         Node.js 🚀
         Express ⚡
