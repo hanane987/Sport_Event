@@ -76,7 +76,7 @@ A simple Event Management System built using Node.js, Express, MongoDB, and Reac
     Contact
     Acknowledgments
 
-🚀 Features
+ 🚀 Features
 
     Create Events: Allows users to add new events with details like title, description, date, and location. 🎉
     View Events: View a list of all created events. 📅
