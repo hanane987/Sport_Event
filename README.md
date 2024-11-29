@@ -45,3 +45,12 @@ A simple Event Management System built using Node.js, Express, MongoDB, and Reac
     Utilities:
         bcryptjs 🔐 (for password hashing)
         dotenv 🗝️ (for managing environment variables)
+
+
+        📥 Installation
+⚙️ Prerequisites
+
+Make sure you have the following installed:
+
+    Node.js: Install Node.js
+    MongoDB: Install MongoDB
