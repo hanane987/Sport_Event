@@ -1,20 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/adminHome.module.css';
-import axios from 'axios';
-
-const navigationLinks = [
-  { text: 'Dashboard', isActive: true },
-  { text: 'Expenses', isActive: false },
-  { text: 'Wallets', isActive: false },
-  { text: 'Summary', isActive: false },
-  { text: 'Accounts', isActive: false },
-  { text: 'Settings', isActive: false },
-];
 
 const DashboardLayout = () => {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState([]); // Ensure events is initialized as an empty array
   const [loading, setLoading] = useState(true);
-  const [showForm, setShowForm] = useState(false); // State to toggle form visibility
+  const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -26,14 +16,31 @@ const DashboardLayout = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('/api/events'); // Adjust the API route as per your setup
-        setEvents(response.data);
+        const response = await fetch('/api/events', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Fetched events:', data);  // Log the response to check the structure
+          if (Array.isArray(data)) {
+            setEvents(data);
+          } else {
+            console.error('Response is not an array:', data);
+          }
+        } else {
+          console.error('Error fetching events:', response.statusText);
+        }
       } catch (error) {
         console.error('Error fetching events:', error);
       } finally {
         setLoading(false);
       }
     };
+
     fetchEvents();
   }, []);
 
@@ -46,11 +53,31 @@ const DashboardLayout = () => {
   // Handle form submission
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await axios.post('/api/events', formData);
-      setEvents([...events, response.data]); // Add new event to the table
-      setFormData({ title: '', description: '', date: '', location: '' }); // Clear the form
-      setShowForm(false); // Hide the form
+      const response = await fetch('/api/events', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const newEvent = await response.json();
+        console.log('Created event:', newEvent);  // Log the new event for verification
+        // Check if the newEvent is valid and if it's an array to prevent undefined length error
+        if (newEvent && Array.isArray(events)) {
+          setEvents([...events, newEvent]);
+        } else {
+          console.error('New event data is invalid:', newEvent);
+        }
+        setFormData({ title: '', description: '', date: '', location: '' });
+        setShowForm(false);
+      } else {
+        throw new Error('Failed to create event');
+      }
     } catch (error) {
       console.error('Error creating event:', error);
     }
@@ -59,8 +86,18 @@ const DashboardLayout = () => {
   // Delete an event
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/events/${id}`);
-      setEvents(events.filter(event => event._id !== id));
+      const response = await fetch(`/api/events/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      if (response.ok) {
+        setEvents(events.filter((event) => event._id !== id));
+      } else {
+        console.error('Error deleting event:', response.statusText);
+      }
     } catch (error) {
       console.error('Error deleting event:', error);
     }
@@ -75,15 +112,10 @@ const DashboardLayout = () => {
             <p className={styles.userEmail}>samantha@email.com</p>
           </div>
           <nav className={styles.navigation} aria-label="Main navigation">
-            {navigationLinks.map((link) => (
-              <button
-                key={link.text}
-                className={`${styles.sidebarLink} ${link.isActive ? styles.active : ''}`}
-                aria-current={link.isActive ? 'page' : undefined}
-              >
-                {link.text}
-              </button>
-            ))}
+            <button className={`${styles.sidebarLink} ${styles.active}`}>
+              Dashboard
+            </button>
+            {/* Other links */}
           </nav>
         </aside>
         <section className={styles.mainContent} aria-label="Dashboard content">
@@ -92,11 +124,12 @@ const DashboardLayout = () => {
               <h2>Manage Events</h2>
               <button
                 className={styles.addButton}
-                onClick={() => setShowForm(!showForm)} // Toggle form visibility
+                onClick={() => setShowForm(!showForm)}
               >
                 {showForm ? 'Cancel' : 'Add Event'}
               </button>
             </div>
+
             {showForm && (
               <form className={styles.eventForm} onSubmit={handleFormSubmit}>
                 <input
@@ -135,6 +168,7 @@ const DashboardLayout = () => {
                 </button>
               </form>
             )}
+
             {loading ? (
               <p>Loading events...</p>
             ) : (
@@ -149,28 +183,28 @@ const DashboardLayout = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {events.map((event) => (
-                    <tr key={event._id}>
-                      <td>{event.title}</td>
-                      <td>{event.description}</td>
-                      <td>{new Date(event.date).toLocaleDateString()}</td>
-                      <td>{event.location}</td>
-                      <td>
-                        <button
-                          className={styles.editButton}
-                          onClick={() => alert(`Edit Event ${event.title}`)} // Replace with actual edit functionality
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className={styles.deleteButton}
-                          onClick={() => handleDelete(event._id)}
-                        >
-                          Delete
-                        </button>
-                      </td>
+                  {events.length > 0 ? (
+                    events.map((event) => (
+                      <tr key={event._id}>
+                        <td>{event.title}</td>
+                        <td>{event.description}</td>
+                        <td>{new Date(event.date).toLocaleDateString()}</td>
+                        <td>{event.location}</td>
+                        <td>
+                          <button
+                            className={styles.deleteButton}
+                            onClick={() => handleDelete(event._id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="5">No events available.</td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             )}

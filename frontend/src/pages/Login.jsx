@@ -45,9 +45,9 @@ const LoginForm = () => {
       const { role } = data.user;
       
       if (role === 'Organizer') {
-        window.location.href = '/dashboard';
+        window.location.href = '/admin';
       } else if (role === 'Participant') {
-        window.location.href = '/home';
+        window.location.href = '/dashboard';
       } else {
         window.location.href = '/';
       }
