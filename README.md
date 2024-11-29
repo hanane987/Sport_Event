@@ -115,3 +115,6 @@ Backend Setup
 
 git clone https://github.com/hanane987/Sport_Event.git
 cd sport-event-project
+
+Navigate to the /server directory (backend):
+cd backend
