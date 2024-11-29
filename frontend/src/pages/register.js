@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from './RegisterForm.module.css';
+import styles from '../styles/RegisterForm.module.css';
 
 export function RegisterForm() {
   const [formData, setFormData] = useState({
