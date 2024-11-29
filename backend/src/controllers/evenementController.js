@@ -15,6 +15,7 @@ export const createEvent = async (req, res) => {
 
     console.log('Valid participants:', participantIds);
 
+    // Check if all participants are valid
     if (participantIds.length !== participants.length) {
       return res.status(400).json({ message: 'Some participants are invalid or do not have the correct role' });
     }
@@ -32,10 +33,29 @@ export const createEvent = async (req, res) => {
     // Save the event
     await newEvent.save();
 
-    res.status(201).json(newEvent);
+    // Populate participants in the response
+    const populatedEvent = await newEvent.populate('participants', 'name email');
+
+    res.status(201).json(populatedEvent);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error creating event', error: error.message });
+  }
+};
+
+// Get all events
+// Get a single event by ID
+export const getEventById = async (req, res) => {
+  try {
+    const event = await Evenement.findById(req.params.id)
+      .populate('participants', 'name email'); // Populate participants with name and email
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+    return res.status(200).json(event);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Error retrieving event', error: error.message });
   }
 };
 
@@ -51,46 +71,33 @@ export const getAllEvents = async (req, res) => {
 };
 
 
-
-// Get a single event by ID
-export const getEventById = async (req, res) => {
-  try {
-    // Find the event by its ID and populate the 'participants' field with 'name' and 'email'
-    const event = await Evenement.findById(req.params.id)
-      .populate('participants', 'name email') // Populate participants with name and email
-      .exec();
-
-    if (!event) {
-      return res.status(404).json({ message: 'Event not found' });
-    }
-
-    return res.status(200).json(event);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'Error retrieving event', error: error.message });
-  }
-};
-
-
-
 // Update an event
 export const updateEvent = async (req, res) => {
   const { id } = req.params;
   const { title, description, date, location, image, participants } = req.body;
 
   try {
+    // Ensure the participants are valid ObjectIds and have the role 'Participant'
     const participantIds = await User.find({
       _id: { $in: participants },
       role: 'Participant',
     }).select('_id');
 
+    // Check if all participants are valid
     if (participantIds.length !== participants.length) {
       return res.status(400).json({ message: 'Some participants are invalid or do not have the correct role' });
     }
 
     const updatedEvent = await Evenement.findByIdAndUpdate(
       id,
-      { title, description, date, location, image, participants: participantIds.map(participant => participant._id) },
+      {
+        title,
+        description,
+        date,
+        location,
+        image,
+        participants: participantIds.map(participant => participant._id), // Add participant ObjectIds
+      },
       { new: true, runValidators: true }
     );
 
@@ -98,7 +105,10 @@ export const updateEvent = async (req, res) => {
       return res.status(404).json({ message: 'Event not found' });
     }
 
-    res.status(200).json({ message: 'Event updated successfully', event: updatedEvent });
+    // Populate participants in the response
+    const populatedEvent = await updatedEvent.populate('participants', 'name email');
+
+    res.status(200).json({ message: 'Event updated successfully', event: populatedEvent });
   } catch (error) {
     res.status(400).json({ message: 'Error updating event', error: error.message });
   }
