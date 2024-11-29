@@ -4,7 +4,7 @@ import { authMiddleware, roleMiddleware } from '../middleware/authMiddleware.js'
 
 const router = express.Router();
 
-// Protect routes with auth and role-based middleware
+ 
 router.post('/', authMiddleware, roleMiddleware([ 'Organizer']), createEvent);
 router.put('/:id', authMiddleware, roleMiddleware([ 'Organizer']), updateEvent);
 router.delete('/:id', authMiddleware, roleMiddleware(['Organizer']), deleteEvent);
