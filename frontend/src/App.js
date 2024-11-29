@@ -1,16 +1,16 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Import Routes and Route
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
-import Main from './Main';  
+import Register from './pages/register'; // Import Register component
+ // Optional: Import a NotFound page for unmatched routes
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/dashboard" element={<Dashboard />} /> {/* Add dashboard route */}
-        <Route path="/login" element={<Login />} /> {/* Add login route */}
-        <Route path="/" element={<Main />} />  {/* Add Main route for the home page */}
+        <Route path="/dashboard" element={<Dashboard />} /> {/* Dashboard route */}
+        <Route path="/login" element={<Login />} /> {/* Login route */}
+        <Route path="/register" element={<Register />} /> {/* Register route */}
       </Routes>
     </Router>
   );

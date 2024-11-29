@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from './SignUpForm.module.css'; // Assuming your CSS styles are similar to this.
+import styles from './RegisterForm.module.css';
 
-const LoginForm = () => {
+export function RegisterForm() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    rememberMe: false
+    role: 'Participant',
+    name: '',
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData(prev => ({
+      ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
   };
@@ -23,47 +24,30 @@ const LoginForm = () => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
-  
+
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
+      const response = await axios.post('http://localhost:5000/api/auth/register', formData, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+          'Access-Control-Allow-Origin': '*'
         },
-        body: JSON.stringify(formData)
+        withCredentials: true
       });
-  
-      const data = await response.json();
-      console.log(data);
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      
-      localStorage.setItem('token', data.token);
-      const { role } = data.user;
-      
-      if (role === 'Organizer') {
-        window.location.href = '/dashboard';
-      } else if (role === 'Participant') {
-        window.location.href = '/home';
-      } else {
-        window.location.href = '/';
-      }
+      localStorage.setItem('token', response.data.token);
+      window.location.href = '/login';
     } catch (err) {
-      setError('Invalid credentials. Please try again.');
+      setError(err.response?.data?.message || 'Registration failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
-  
 
   return (
     <div className={styles.formContainer}>
       <header className={styles.formHeader}>
-        <h2 className={styles.title}>Login to your Account</h2>
-        <p className={styles.subtitle}>See what is going on with your business</p>
+        <h2 className={styles.title}>Create Your Account</h2>
+        <p className={styles.subtitle}>Join us to start your journey</p>
       </header>
 
       {error && (
@@ -72,10 +56,10 @@ const LoginForm = () => {
         </div>
       )}
 
-      <button
-        type="button"
+      <button 
+        type="button" 
         className={styles.googleButton}
-        onClick={() => window.location.href = '/auth/google'}
+        onClick={() => window.location.href = '/auth/google/register'}
         aria-label="Continue with Google"
       >
         <img src="/images/google-icon.svg" alt="" className={styles.googleIcon} />
@@ -83,10 +67,27 @@ const LoginForm = () => {
       </button>
 
       <div className={styles.divider} role="separator">
-        <span>or Sign in with Email</span>
+        <span>or Register with Email</span>
       </div>
 
       <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.inputGroup}>
+          <label htmlFor="name" className={styles.label}>
+            Full Name
+          </label>
+          <input
+            id="name"
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            className={styles.input}
+            required
+            aria-required="true"
+            aria-invalid={error ? 'true' : 'false'}
+          />
+        </div>
+
         <div className={styles.inputGroup}>
           <label htmlFor="email" className={styles.label}>
             Email
@@ -118,23 +119,26 @@ const LoginForm = () => {
             required
             aria-required="true"
             aria-invalid={error ? 'true' : 'false'}
+            minLength={8}
           />
         </div>
 
-        <div className={styles.options}>
-          <label className={styles.checkbox}>
-            <input
-              type="checkbox"
-              name="rememberMe"
-              checked={formData.rememberMe}
-              onChange={handleInputChange}
-            />
-            <span>Remember Me</span>
+        <div className={styles.inputGroup}>
+          <label htmlFor="role" className={styles.label}>
+            Account Type
           </label>
-
-          <a href="/forgot-password" className={styles.forgotPassword}>
-            Forgot Password?
-          </a>
+          <select
+            id="role"
+            name="role"
+            value={formData.role}
+            onChange={handleInputChange}
+            className={styles.select}
+            required
+            aria-required="true"
+          >
+            <option value="Participant">Participant</option>
+            <option value="Organizer">Organizer</option>
+          </select>
         </div>
 
         <button
@@ -143,18 +147,18 @@ const LoginForm = () => {
           disabled={isLoading}
           aria-busy={isLoading}
         >
-          {isLoading ? 'Logging in...' : 'Login'}
+          {isLoading ? 'Creating Account...' : 'Create Account'}
         </button>
       </form>
 
-      <p className={styles.register}>
-        Not Registered Yet?{' '}
-        <a href="/register" className={styles.registerLink}>
-          Create an account
+      <p className={styles.login}>
+        Already have an account?{' '}
+        <a href="/login" className={styles.loginLink}>
+          Sign in here
         </a>
       </p>
     </div>
   );
-};
+}
 
-export default LoginForm;
+export default RegisterForm;

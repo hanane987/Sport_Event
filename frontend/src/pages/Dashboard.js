@@ -1,38 +1,55 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import EventCard from '../components/EventCard';
+import styles from './dashboard.module.css';
 
-function Dashboard() {
-  const [user, setUser] = useState(null);
+const Dashboard = () => {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchProfile = async () => {
+    const fetchEvents = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/api/users/profile', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setUser(response.data);
-      } catch (error) {
-        console.error('Failed to fetch profile:', error);
+        const response = await fetch('http://localhost:5000/api/events'); // Correct endpoint
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+        const data = await response.json();
+        setEvents(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchProfile();
+    fetchEvents();
   }, []);
 
+  if (loading) {
+    return <p>Loading events...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
   return (
-    <div>
-      <h2>Dashboard</h2>
-      {user ? (
-        <div>
-          <h3>Welcome, {user.name}</h3>
-          <p>Email: {user.email}</p>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <h1>Event Dashboard</h1>
+      </header>
+      <main className={styles.main}>
+        <section className={styles.eventGrid}>
+          {events.length === 0 ? (
+            <p>No events available.</p>
+          ) : (
+            events.map((event) => <EventCard key={event._id} event={event} />)
+          )}
+        </section>
+      </main>
     </div>
   );
-}
+};
 
 export default Dashboard;

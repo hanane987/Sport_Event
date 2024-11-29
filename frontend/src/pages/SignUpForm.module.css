@@ -1,0 +1,224 @@
+.formContainer {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .formHeader {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .title {
+    color: #73114B;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    font-family: 'Nunito Sans', sans-serif;
+  }
+  
+  .subtitle {
+    color: #525252;
+    font-size: 1rem;
+    font-family: 'Nunito Sans', sans-serif;
+  }
+  
+  .error {
+    background-color: #FEE2E2;
+    color: #DC2626;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .googleButton {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border: 1px solid #E8E8E8;
+    border-radius: 8px;
+    background: white;
+    color: #828282;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .googleButton:hover {
+    background-color: #f5f5f5;
+    border-color: #D1D5DB;
+  }
+  
+  .googleButton:focus {
+    outline: none;
+    ring: 2px;
+    ring-offset: 2px;
+    ring-color: #7F265B;
+  }
+  
+  .googleIcon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 2rem 0;
+    color: #A1A1A1;
+    font-size: 0.875rem;
+  }
+  
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #E5E7EB;
+  }
+  
+  .divider span {
+    margin: 0 1rem;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .label {
+    color: #828282;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #DED2D9;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+  }
+  
+  .input:focus {
+    outline: none;
+    border-color: #7F265B;
+    box-shadow: 0 0 0 3px rgba(127, 38, 91, 0.1);
+  }
+  
+  .input[aria-invalid="true"] {
+    border-color: #DC2626;
+  }
+  
+  .options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #A1A1A1;
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
+  
+  .checkbox input {
+    width: 1rem;
+    height: 1rem;
+    accent-color: #7F265B;
+  }
+  
+  .forgotPassword {
+    color: #7F265B;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+  
+  .forgotPassword:hover {
+    opacity: 0.8;
+  }
+  
+  .submitButton {
+    width: 100%;
+    padding: 0.875rem;
+    background-color: #7F265B;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.125rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .submitButton:hover:not(:disabled) {
+    background-color: #6a1f4c;
+  }
+  
+  .submitButton:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .register {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #828282;
+    font-size: 1rem;
+  }
+  
+  .registerLink {
+    color: #7F265B;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+  
+  .registerLink:hover {
+    opacity: 0.8;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .googleButton,
+    .input,
+    .forgotPassword,
+    .submitButton,
+    .registerLink {
+      transition: none;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .formContainer {
+      padding: 1.5rem;
+    }
+  
+    .title {
+      font-size: 1.75rem;
+    }
+  
+    .subtitle {
+      font-size: 0.875rem;
+    }
+  }
