@@ -162,6 +162,109 @@
     outline: 2px solid rgb(16, 16, 16);
     outline-offset: 2px;
   }
+
+  /* Table Styling */
+.eventTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    background-color: #ffffff; /* White background */
+    border-radius: 10px; /* Rounded corners */
+    overflow: hidden; /* Hide overflow for the corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .eventTable th,
+  .eventTable td {
+    padding: 15px 20px; /* Add padding for better spacing */
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333; /* Dark text for readability */
+  }
+  
+  .eventTable th {
+    background-color: #f7f7f7; /* Light gray for the header */
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .eventTable tbody tr {
+    background-color: #f9f9f9; /* Alternating light gray rows */
+    transition: background-color 0.3s ease;
+  }
+  
+  .eventTable tbody tr:nth-child(even) {
+    background-color: #ffffff; /* White for alternate rows */
+  }
+  
+  .eventTable tbody tr:hover {
+    background-color: #e9f5ff; /* Light blue on hover */
+  }
+  
+  /* Button Styling */
+  .editButton,
+  .deleteButton {
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .editButton {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .editButton:hover {
+    background-color: #43a047;
+  }
+  
+  .deleteButton {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .deleteButton:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Table Container for Responsive Design */
+  .tableContainer {
+    width: 100%;
+    overflow-x: auto; /* Allow horizontal scrolling on small screens */
+    margin: 20px 0;
+  }
+  
+  .tableContainer::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  .tableContainer::-webkit-scrollbar-thumb {
+    background-color: #888; /* Darker scrollbar */
+    border-radius: 3px;
+  }
+  
+  .tableContainer::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Change on hover */
+  }
+  .tableContainer {
+    margin: 100px auto; /* Center horizontally */
+    max-width: 100%; /* Ensure table takes full width */
+    padding: 10px; /* Optional padding for breathing room */
+  }
+  
+  .eventTable {
+    margin-top: 0
+; /* Remove default spacing at the top */
+  }
   
   @media (max-width: 991px) {
     .dashboard {
