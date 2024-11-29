@@ -134,7 +134,7 @@ A simple Event Management System built using Node.js, Express, MongoDB, and Reac
     Installation
         Backend Setup
         Frontend Setup
-    API Endpoints
+     API Endpoints
         POST /api/events
         GET /api/events
     Project Structure
