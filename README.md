@@ -232,3 +232,18 @@ API Endpoints
       "location": "Event Location"
     }
 
+    GET /api/events
+       Description: Retrieve all events.
+        Body:
+
+    {
+      "title": "Event Title",
+      "description": "Event Description",
+      "date": "2024-12-20T09:00:00Z",
+      "location": "Event Location"
+    }
+
+
+
+    
+
