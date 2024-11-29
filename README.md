@@ -179,7 +179,7 @@ Make sure you have the following installed:
 
 Backend Setup
 
-    Clone the repository to your local machine:
+ Clone the repository to your local machine:
 
 git clone https://github.com/your-username/event-management-system.git
 cd event-management-system
