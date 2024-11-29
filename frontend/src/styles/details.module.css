@@ -1,0 +1,88 @@
+/* Styles for EventDetails Component */
+.eventDetailsContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(221, 53, 53, 0.1);
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .eventTitle {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .eventDescription {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  
+  .eventDate {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 20px;
+    text-align: center;
+    font-style: italic;
+  }
+  
+  .participantsContainer {
+    margin-top: 20px;
+  }
+  
+  .participantsTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 10px;
+    text-decoration: underline;
+  }
+  
+  .participant {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .participant:last-child {
+    border-bottom: none;
+  }
+  
+  .participantName {
+    font-size: 1rem;
+    color: #333;
+    margin-right: 10px;
+  }
+  
+  .participantEmail {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .eventDetailsContainer {
+      padding: 15px;
+    }
+  
+    .eventTitle {
+      font-size: 1.5rem;
+    }
+  
+    .eventDescription {
+      font-size: 0.95rem;
+    }
+  
+    .participantsTitle {
+      font-size: 1rem;
+    }
+  }
+  
